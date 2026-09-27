@@ -2,7 +2,8 @@ import { useRef } from "react";
 import { Play, Package } from "lucide-react";
 import type { Beat } from "../data/beats";
 import { BEATS } from "../data/beats";
-import { Cover } from "./Cover";
+
+import { PackArt, type PackKind } from "./PackArt";
 
 export function Stash({
   currentId,
@@ -98,8 +99,10 @@ function Pack({
     start.current = null;
   };
 
-  // alternate the work: brick in saran, baggie sharpie'd, baggie w/ primo printed label
-  const mode = index % 3 === 0 ? "brick" : index % 3 === 1 ? "baggie" : "baggie primo";
+  // alternate the work: white brick, tan brick, dub sack, dub sack w/ primo label
+  const slot = index % 4;
+  const mode = slot === 0 || slot === 1 ? "brick" : slot === 2 ? "baggie sack" : "baggie sack primo";
+  const kind: PackKind = slot === 0 ? "white" : slot === 1 ? "tan" : "sack";
 
   return (
     <article
@@ -133,7 +136,7 @@ function Pack({
             <span className="twist t-right" aria-hidden="true" />
           </>
         )}
-        <Cover beat={beat} />
+        <PackArt beat={beat} kind={kind} />
         <button
           className="pack-play"
           onClick={() => onPreview(beat)}

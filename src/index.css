@@ -178,14 +178,13 @@ input { font: inherit; }
   linear-gradient(168deg, color-mix(in srgb, var(--tint, #9fd8ff) 30%, #101318) 0%, #090b0e 70%);
 }
 .pack.brick .pack-cover {
-  flex: 1; min-height: 210px; margin: 26px 20px 4px; border-radius: 5px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16), inset 0 2px 1px rgba(255,255,255,0.22), 0 14px 36px rgba(0,0,0,0.55);
-  background: #0c0f13;
+  flex: 1; min-height: 220px; margin: 30px 18px 2px; border-radius: 5px;
 }
 .pack.brick .pack-cover::before {
   content: ""; position: absolute; inset: 0; border-radius: 5px; z-index: 2;
-  background: linear-gradient(178deg, rgba(255,255,255,0.14), transparent 26%);
+  background: linear-gradient(172deg, rgba(255,255,255,0.13), transparent 30%, rgba(255,255,255,0.05) 90%);
 }
+.pack-cover .art { position: absolute; inset: 0; }
 /* twisted plastic ends, pinched with a rubber band */
 .twist {
   position: absolute; top: 50%; width: 18px; height: 44%; z-index: 1;
@@ -228,7 +227,7 @@ input { font: inherit; }
   position: absolute; top: 11px; right: 11%; z-index: 10; width: 15px; height: 8px;
   border-radius: 2px; background: rgba(230,240,250,0.5); box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
-.pack.baggie .pack-cover { flex: 1; min-height: 200px; margin: 38px 14px 4px; border-radius: 4px; }
+.pack.baggie .pack-cover { flex: 1; min-height: 210px; margin: 40px 14px 4px; border-radius: 4px; }
 
 .pack-cover { position: relative; overflow: hidden; }
 .pack-cover svg { width: 100%; height: 100%; display: block; }
