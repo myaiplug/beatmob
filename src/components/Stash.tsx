@@ -98,7 +98,8 @@ function Pack({
     start.current = null;
   };
 
-  const mode = index % 2 === 0 ? "brick" : "baggie";
+  // alternate the work: brick in saran, baggie sharpie'd, baggie w/ primo printed label
+  const mode = index % 3 === 0 ? "brick" : index % 3 === 1 ? "baggie" : "baggie primo";
 
   return (
     <article
@@ -149,6 +150,7 @@ function Pack({
           <span className="pack-weight">{beat.weightOz} OZ NET</span>
           <span className="pack-price">${beat.price}</span>
         </div>
+        {mode.includes("primo") && <span className="barcode" aria-hidden="true" />}
         <div className="pack-actions">
           <button className="btn" onClick={() => onOpenScale(beat)}>
             <Package size={13} /> Weigh it

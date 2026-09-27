@@ -265,6 +265,25 @@ input { font: inherit; }
   font-family: var(--font-mono); font-size: 0.54rem; color: rgba(233,240,246,0.5);
   letter-spacing: 0.22em; text-transform: uppercase; writing-mode: vertical-rl;
 }
+/* primo: printed label plate on the work */
+.pack.primo .pack-body {
+  margin: 0.8rem 0.85rem 0.95rem; padding: 0.7rem 0.85rem 0.75rem;
+  background: linear-gradient(178deg, #f2efe8, #ded9cd); border-radius: 3px;
+  color: #14100a;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.65);
+}
+.pack.primo .pack-name { font-family: var(--font-display); font-size: 1.35rem; transform: none; text-shadow: none; color: #14100a; letter-spacing: 0.02em; }
+.pack.primo .pack-strain { font-family: var(--font-mono); font-size: 0.62rem; transform: none; color: #6b6357; text-transform: uppercase; letter-spacing: 0.14em; }
+.pack.primo .pack-meta { border-top: 1.5px dashed rgba(20,16,10,0.32); }
+.pack.primo .pack-weight { color: #14100a; }
+.pack.primo .pack-price { font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; color: #a32d24; transform: none; text-shadow: none; border: 1.5px solid rgba(163,45,36,0.6); padding: 0.05rem 0.35rem; border-radius: 3px; }
+.pack.primo .barcode { display: block; height: 20px; margin-top: 0.55rem; border-radius: 1px; opacity: 0.85;
+  background: repeating-linear-gradient(90deg, #14100a 0 2px, transparent 2px 4px, #14100a 4px 5px, transparent 5px 9px, #14100a 9px 12px, transparent 12px 13px);
+}
+.pack.primo .btn { border-color: rgba(20,16,10,0.4); color: #14100a; background: rgba(20,16,10,0.05); }
+.pack.primo .btn:hover { background: rgba(20,16,10,0.13); }
+.pack.primo .btn-solid { background: #14100a; color: #f2efe8; border-color: transparent; }
+
 .playing-ring { position: absolute; inset: 0; z-index: 11; pointer-events: none; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--ice); animation: ringPulse 1.6s ease-in-out infinite; }
 @keyframes ringPulse { 0%,100% { opacity: 0.9; } 50% { opacity: 0.35; } }
 
