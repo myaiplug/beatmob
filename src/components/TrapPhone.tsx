@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Play, Send, Sparkles } from "lucide-react";
+import { X, Play, Send, Smartphone, Sparkles } from "lucide-react";
 import type { Beat } from "../data/beats";
 import { BEATS, keyCompat } from "../data/beats";
 import { Cover } from "./Cover";
@@ -40,12 +40,13 @@ export function TrapPhone({
 
   return (
     <>
-      <button className="dock-btn" onClick={onOpen} aria-label={`Open the phone (${entries.length} in cart)`}>
-        <Send size={20} />
+      <button className="phone-fab" onClick={onOpen} aria-label={`Open the phone (${entries.length} in cart)`}>
+        <Smartphone size={24} />
         {unread > 0 && <span className="badge">{unread}</span>}
       </button>
 
       <div className={`phone${open ? " on" : ""}`} role="dialog" aria-label="The plug's phone">
+        <p className="phone-brand" aria-hidden="true">MOB·FONE 8</p>
         <div className="phone-screen">
           <svg className="crack" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <path d="M12 0 L22 18 L14 34 L28 52 L20 72 L32 100" stroke="rgba(255,255,255,0.18)" strokeWidth="0.3" fill="none" />
@@ -162,10 +163,15 @@ export function TrapPhone({
             className="icon-btn"
             onClick={onClose}
             aria-label="Close phone"
-            style={{ position: "absolute", top: "0.4rem", right: "0.4rem", zIndex: 6 }}
+            style={{ position: "absolute", top: "0.35rem", right: "0.35rem", zIndex: 8 }}
           >
             <X size={14} />
           </button>
+        </div>
+        <div className="phone-pad" aria-hidden="true">
+          <span className="pk led"></span><span className="pk"></span><span className="pk"></span>
+          <span className="pk"></span><span className="pk"></span><span className="pk"></span>
+          <span className="pk"></span><span className="pk"></span><span className="pk"></span>
         </div>
       </div>
     </>

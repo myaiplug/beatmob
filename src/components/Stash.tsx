@@ -102,7 +102,7 @@ function Pack({
     <article
       ref={ref}
       className={`pack${playing ? " playing" : ""}`}
-      style={{ animationDelay: `${0.08 * index}s` }}
+      style={{ animationDelay: `${0.08 * index}s`, "--tint": beat.palette[1] } as React.CSSProperties}
       onPointerMove={tilt}
       onPointerLeave={untilt}
       onPointerDown={down}
@@ -110,6 +110,7 @@ function Pack({
       onPointerUp={up}
     >
       {playing && <span className="playing-ring" aria-hidden="true" />}
+      <span className="pack-lot" aria-hidden="true">LOT {beat.bpm} · SEAL {index + 1}</span>
       {free && <span className="pack-badge">FREE LEASE</span>}
       <div className="pack-cover">
         <Cover beat={beat} />
@@ -126,7 +127,7 @@ function Pack({
         <h3 className="pack-name">{beat.name}</h3>
         <p className="pack-strain">{beat.strain}</p>
         <div className="pack-meta">
-          <span className="pack-weight">⚖ {beat.weightOz} OZ</span>
+          <span className="pack-weight">{beat.weightOz} OZ NET</span>
           <span className="pack-price">${beat.price}</span>
         </div>
         <div className="pack-actions">
