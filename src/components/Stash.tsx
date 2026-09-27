@@ -98,10 +98,12 @@ function Pack({
     start.current = null;
   };
 
+  const mode = index % 2 === 0 ? "brick" : "baggie";
+
   return (
     <article
       ref={ref}
-      className={`pack${playing ? " playing" : ""}`}
+      className={`pack ${mode}${playing ? " playing" : ""}`}
       style={{ animationDelay: `${0.08 * index}s`, "--tint": beat.palette[1] } as React.CSSProperties}
       onPointerMove={tilt}
       onPointerLeave={untilt}
@@ -112,7 +114,24 @@ function Pack({
       {playing && <span className="playing-ring" aria-hidden="true" />}
       <span className="pack-lot" aria-hidden="true">LOT {beat.bpm} · SEAL {index + 1}</span>
       {free && <span className="pack-badge">FREE LEASE</span>}
+      {mode === "brick" ? (
+        <span className="tape" aria-hidden="true">
+          <em>PROD. THEBEATMOB ▸ KEEP FROZEN ▸ PROD. THEBEATMOB ▸</em>
+        </span>
+      ) : (
+        <span className="seal-chip" aria-hidden="true" />
+      )}
+      <span className="wrinkle w1" aria-hidden="true" />
+      <span className="wrinkle w2" aria-hidden="true" />
+      <span className="wrinkle w3" aria-hidden="true" />
+      <span className="wrinkle w4" aria-hidden="true" />
       <div className="pack-cover">
+        {mode === "brick" && (
+          <>
+            <span className="twist t-left" aria-hidden="true" />
+            <span className="twist t-right" aria-hidden="true" />
+          </>
+        )}
         <Cover beat={beat} />
         <button
           className="pack-play"

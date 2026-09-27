@@ -15,6 +15,7 @@
   --warn: #ffb36b;
   --font-display: "Anton", "Arial Narrow", sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
+  --font-marker: "Permanent Marker", cursive;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -127,99 +128,144 @@ input { font: inherit; }
   display: grid; gap: 1.6rem;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
-/* ── the stash · heat-sealed foil packs ── */
+/* ── the stash · saran-wrapped work ── */
 .section { max-width: 1200px; margin: 0 auto; padding: 5rem 1.4rem; }
 .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 2.4rem; flex-wrap: wrap; }
 .section-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.4rem); text-transform: uppercase; }
-.stash-grid {
-  display: grid; gap: 1.8rem;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-}
+.stash-grid { display: grid; gap: 1.8rem; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+
+/* the bag itself */
 .pack {
-  position: relative; border-radius: 3px 3px 16px 16px; overflow: hidden;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  border-radius: 8px 8px 16px 16px;
   background:
-    linear-gradient(160deg, color-mix(in srgb, var(--tint, #9fd8ff) 22%, #1b2026) 0%, #101318 45%, #0a0c0f 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-top: none;
-  box-shadow: 0 24px 55px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(255,255,255,0.06);
+    radial-gradient(130% 100% at 18% 0%, rgba(255,255,255,0.09), transparent 46%),
+    linear-gradient(168deg, color-mix(in srgb, var(--tint, #9fd8ff) 24%, #0f1319) 0%, #0a0c0f 62%);
+  border: 1px solid rgba(255,255,255,0.17);
+  box-shadow: 0 26px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.2);
   transition: box-shadow 0.45s, border-color 0.45s;
-  transform-style: preserve-3d;
-  will-change: transform;
+  transform-style: preserve-3d; will-change: transform;
   opacity: 0; animation: rise 0.8s var(--ease-out) forwards;
-  touch-action: none;
-  user-select: none; -webkit-user-select: none;
+  touch-action: none; user-select: none; -webkit-user-select: none;
 }
-.pack:hover { box-shadow: 0 34px 80px rgba(0,0,0,0.7), 0 0 0 1px color-mix(in srgb, var(--tint, #9fd8ff) 45%, transparent); border-color: rgba(255,255,255,0.28); }
-/* crimped heat-seal top */
-.pack::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 16px; z-index: 4;
-  background:
-    linear-gradient(45deg, transparent 33.4%, #454b53 33.4%, #565d66 66.7%, transparent 66.7%),
-    linear-gradient(-45deg, transparent 33.4%, #454b53 33.4%, #565d66 66.7%, transparent 66.7%);
-  background-size: 11px 16px;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.75);
-}
-/* vertical foil creases */
+.pack:hover { box-shadow: 0 36px 85px rgba(0,0,0,0.75), 0 0 0 1px color-mix(in srgb, var(--tint, #9fd8ff) 40%, transparent); border-color: rgba(255,255,255,0.3); }
+/* saran wrap: glossy streaks + specular flash over the whole bag */
 .pack::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  content: ""; position: absolute; inset: 0; z-index: 7; pointer-events: none; border-radius: inherit;
   background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 9px),
-    linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.12) 44%, transparent 55%);
-  background-size: auto, 240% 240%;
-  transition: background-position 0.9s ease;
+    linear-gradient(112deg, transparent 16%, rgba(255,255,255,0.17) 21%, rgba(255,255,255,0.03) 28%, transparent 34%),
+    linear-gradient(112deg, transparent 52%, rgba(255,255,255,0.1) 57%, transparent 63%),
+    linear-gradient(64deg, transparent 76%, rgba(255,255,255,0.07) 82%, transparent 88%);
+  mix-blend-mode: screen;
+  transition: opacity 0.4s;
 }
-.pack:hover::after { background-position: 0 0, 130% 0; }
-.pack-cover { position: relative; aspect-ratio: 1; overflow: hidden; z-index: 0; margin-top: 16px; filter: saturate(1.05); }
+.pack:hover::after { opacity: 0.75; }
+/* stretch wrinkles in the plastic */
+.wrinkle {
+  position: absolute; z-index: 6; height: 1.5px; width: 72%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  filter: blur(0.4px); opacity: 0.7;
+}
+.wrinkle.w1 { top: 15%; left: -6%; transform: rotate(-15deg); }
+.wrinkle.w2 { top: 40%; right: -10%; transform: rotate(21deg); width: 55%; }
+.wrinkle.w3 { top: 68%; left: 8%; transform: rotate(-7deg); width: 46%; }
+.wrinkle.w4 { top: 86%; right: 4%; transform: rotate(12deg); width: 34%; }
+
+/* brick mode: hard rectangular press, twist-taped ends */
+.pack.brick { border-radius: 10px; background:
+  radial-gradient(130% 100% at 18% 0%, rgba(255,255,255,0.07), transparent 40%),
+  linear-gradient(168deg, color-mix(in srgb, var(--tint, #9fd8ff) 30%, #101318) 0%, #090b0e 70%);
+}
+.pack.brick .pack-cover {
+  flex: 1; min-height: 210px; margin: 26px 20px 4px; border-radius: 5px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16), inset 0 2px 1px rgba(255,255,255,0.22), 0 14px 36px rgba(0,0,0,0.55);
+  background: #0c0f13;
+}
+.pack.brick .pack-cover::before {
+  content: ""; position: absolute; inset: 0; border-radius: 5px; z-index: 2;
+  background: linear-gradient(178deg, rgba(255,255,255,0.14), transparent 26%);
+}
+/* twisted plastic ends, pinched with a rubber band */
+.twist {
+  position: absolute; top: 50%; width: 18px; height: 44%; z-index: 1;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--tint, #9fd8ff) 20%, #14181d), #0b0d10);
+  border-radius: 60% 45% 45% 60%;
+  filter: blur(0.6px); opacity: 0.85;
+}
+.twist.t-left { left: -12px; transform: translateY(-50%) rotate(8deg); }
+.twist.t-right { right: -12px; transform: translateY(-50%) rotate(-8deg) scaleX(-1); }
+.twist::after { /* the band pinch */
+  content: ""; position: absolute; left: 7px; top: 18%; bottom: 18%; width: 4px;
+  background: #262a30; border-radius: 3px; box-shadow: 0 0 5px rgba(0,0,0,0.9);
+}
+/* packaging tape printed across the brick */
+.tape {
+  position: absolute; z-index: 8; top: 32%; left: -9%; width: 118%; transform: rotate(-3.5deg);
+  padding: 0.34rem 0 0.3rem; overflow: hidden; white-space: nowrap; text-align: center;
+  background: linear-gradient(180deg, rgba(238,244,250,0.17), rgba(238,244,250,0.09));
+  border-block: 1px solid rgba(255,255,255,0.26);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+.tape em {
+  font-style: normal; font-family: var(--font-mono); font-size: 0.56rem;
+  letter-spacing: 0.34em; color: #ff7a6e; opacity: 0.9;
+}
+
+/* baggie mode: sandwich bag, folded flap + zip seal */
+.pack.baggie { border-radius: 6px 6px 15px 15px; background:
+  radial-gradient(130% 100% at 20% 0%, rgba(230,240,250,0.1), transparent 45%),
+  linear-gradient(168deg, color-mix(in srgb, var(--tint, #9fd8ff) 18%, rgba(210,224,238,0.06)) 0%, rgba(12,15,19,0.9) 72%),
+  #0a0c0f;
+}
+.pack.baggie::before { /* the fold-over flap */
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 30px; z-index: 9;
+  background: linear-gradient(180deg, rgba(226,236,246,0.2), rgba(226,236,246,0.08));
+  border-bottom: 2px dashed rgba(255,255,255,0.34);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+.seal-chip {
+  position: absolute; top: 11px; right: 11%; z-index: 10; width: 15px; height: 8px;
+  border-radius: 2px; background: rgba(230,240,250,0.5); box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.pack.baggie .pack-cover { flex: 1; min-height: 200px; margin: 38px 14px 4px; border-radius: 4px; }
+
+.pack-cover { position: relative; overflow: hidden; }
 .pack-cover svg { width: 100%; height: 100%; display: block; }
 .pack-play {
-  position: absolute; right: 0.8rem; bottom: 0.8rem; z-index: 3;
-  width: 46px; height: 46px; border-radius: 50%;
+  position: absolute; right: 0.7rem; bottom: 0.7rem; z-index: 3;
+  width: 44px; height: 44px; border-radius: 50%;
   display: grid; place-items: center;
   background: rgba(6,7,10,0.78); border: 1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(8px);
-  color: #fff; transition: transform 0.3s var(--ease-spring), background 0.3s;
+  backdrop-filter: blur(8px); color: #fff;
+  transition: transform 0.3s var(--ease-spring), background 0.3s;
 }
 .pack-play:hover { transform: scale(1.12); background: rgba(255,255,255,0.22); }
-/* kraft sticker label */
-.pack-body {
-  position: relative; z-index: 2; margin: 0.9rem 0.85rem 1rem; padding: 0.85rem 0.95rem 1rem;
-  background: linear-gradient(178deg, #efe9da, #ddd4bf);
-  border-radius: 4px;
-  transform: rotate(-0.6deg);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.5), inset 0 -3px 0 rgba(120,100,60,0.14);
-  color: #171410;
+
+/* sharpie on the plastic */
+.pack-body { position: relative; z-index: 6; margin: 0.85rem 1rem 1.05rem; color: #eef3f8; }
+.pack-name {
+  font-family: var(--font-marker); font-size: 1.7rem; line-height: 1.1;
+  transform: rotate(-1.6deg); transform-origin: left;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.7);
 }
-.pack-body::after { /* torn edge */
-  content: ""; position: absolute; left: 0; right: 0; top: -5px; height: 6px;
-  background: linear-gradient(178deg, #efe9da, #ddd4bf);
-  clip-path: polygon(0 100%, 3% 0, 9% 100%, 14% 20%, 20% 100%, 27% 0, 34% 100%, 41% 30%, 48% 100%, 55% 0, 62% 100%, 69% 25%, 76% 100%, 83% 0, 90% 100%, 96% 15%, 100% 100%);
-}
-.pack-name { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.03em; color: #100d09; }
-.pack-strain { color: #6b5f4a; font-size: 0.78rem; margin-top: 0.12rem; font-family: var(--font-mono); }
-.pack-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; padding-top: 0.6rem; border-top: 1.5px dashed rgba(23,20,16,0.35); }
-.pack-weight { font-family: var(--font-mono); font-size: 0.72rem; color: #171410; letter-spacing: 0.08em; font-weight: 700; }
-.pack-price {
-  font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; color: #d64545;
-  border: 2px solid rgba(214,69,69,0.55); border-radius: 4px; padding: 0.06rem 0.42rem;
-  transform: rotate(1.2deg);
-}
-.pack-actions { display: flex; gap: 0.5rem; margin-top: 0.9rem; }
-.pack-actions .btn { flex: 1; justify-content: center; padding: 0.6rem 0.7rem; font-size: 0.64rem; border-color: rgba(23,20,16,0.35); color: #171410; background: rgba(23,20,16,0.05); }
-.pack-actions .btn:hover { background: rgba(23,20,16,0.14); }
-.pack-actions .btn-solid { background: #171410; color: #efe9da; border-color: transparent; }
-.pack.dragging { cursor: grabbing; }
+.pack-strain { font-family: var(--font-marker); font-size: 0.95rem; color: #c3cdd8; margin-top: 0.14rem; transform: rotate(-0.7deg); }
+.pack-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.7rem; padding-top: 0.55rem; border-top: 1.5px dashed rgba(255,255,255,0.28); }
+.pack-weight { font-family: var(--font-mono); font-size: 0.7rem; color: #dfe8f0; letter-spacing: 0.1em; font-weight: 700; opacity: 0.9; }
+.pack-price { font-family: var(--font-marker); font-size: 1.25rem; color: #ff9d94; transform: rotate(2deg); text-shadow: 0 1px 0 rgba(0,0,0,0.6); }
+.pack-actions { display: flex; gap: 0.5rem; margin-top: 0.85rem; }
+.pack-actions .btn { flex: 1; justify-content: center; padding: 0.6rem 0.7rem; font-size: 0.64rem; }
 .pack-badge {
-  position: absolute; top: 24px; left: 0.85rem; z-index: 5;
-  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em;
-  color: #d64545; border: 2px solid rgba(214,69,69,0.7); border-radius: 3px;
-  padding: 0.2rem 0.5rem; background: #efe9da; transform: rotate(-2deg);
+  position: absolute; top: 38px; left: 0.85rem; z-index: 10;
+  font-family: var(--font-marker); font-size: 0.8rem; color: #ffb0a6;
+  transform: rotate(-4deg); text-shadow: 0 1px 0 rgba(0,0,0,0.7);
 }
 .pack-lot {
-  position: absolute; z-index: 5; top: 24px; right: 0.85rem;
-  font-family: var(--font-mono); font-size: 0.54rem; color: rgba(239,233,218,0.55);
+  position: absolute; z-index: 10; top: 38px; right: 0.85rem;
+  font-family: var(--font-mono); font-size: 0.54rem; color: rgba(233,240,246,0.5);
   letter-spacing: 0.22em; text-transform: uppercase; writing-mode: vertical-rl;
 }
-.playing-ring { position: absolute; inset: 0; z-index: 6; pointer-events: none; border-radius: 3px 3px 16px 16px; box-shadow: inset 0 0 0 2px var(--ice); animation: ringPulse 1.6s ease-in-out infinite; }
+.playing-ring { position: absolute; inset: 0; z-index: 11; pointer-events: none; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--ice); animation: ringPulse 1.6s ease-in-out infinite; }
 @keyframes ringPulse { 0%,100% { opacity: 0.9; } 50% { opacity: 0.35; } }
 
 /* ── player bar ── */

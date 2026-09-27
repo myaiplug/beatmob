@@ -10,7 +10,7 @@ export function Cover({ beat, className }: { beat: Beat; className?: string }) {
   const rot = Math.floor(rng() * 90);
   const bars = Array.from({ length: 12 }, () => 0.2 + rng() * 0.8);
   return (
-    <svg viewBox="0 0 100 100" className={className} role="img" aria-label={`${beat.name} cover`}>
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" className={className} role="img" aria-label={`${beat.name} cover`}>
       <defs>
         <radialGradient id={`g-${beat.id}`} cx="30%" cy="25%">
           <stop offset="0%" stopColor={hi} stopOpacity="0.5" />
