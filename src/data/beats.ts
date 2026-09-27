@@ -20,6 +20,8 @@ export type Beat = {
   summary: string; // the plug's text about it
   palette: [string, string, string]; // cover + accent colors
   synthSeed: number;
+  /** One-of-one product shot (public/product/<file>) — stamped brick art. */
+  img: string;
   /** Real preview file (from /beats/...) — when set, the player uses it. */
   audioUrl?: string;
 };
@@ -43,6 +45,7 @@ export const BEATS: Beat[] = [
       "coldest one in the stash. slow-creep bells, 808s hit like a deep freeze. made for late nights — prod. TheBeatMob",
     palette: ["#0e1a26", "#9fd8ff", "#dff2ff"],
     synthSeed: 101,
+    img: "frostbite.png"
   },
   {
     id: "late-night",
@@ -62,6 +65,7 @@ export const BEATS: Beat[] = [
       "smoke-room drill. sliding 808s, muted keys, tempo leans back. for the 3am writes — prod. TheBeatMob",
     palette: ["#1a1220", "#c9a7ff", "#efe3ff"],
     synthSeed: 202,
+    img: "late-night.png"
   },
   {
     id: "snowbird",
@@ -81,6 +85,7 @@ export const BEATS: Beat[] = [
       "floaty one. airy pads, soft snares, 808s whisper. cruising music — prod. TheBeatMob",
     palette: ["#101820", "#8fe3c9", "#e2fff5"],
     synthSeed: 303,
+    img: "snowbird.png"
   },
   {
     id: "brick-talk",
@@ -100,6 +105,7 @@ export const BEATS: Beat[] = [
       "corner-store energy. knocking drums, stabby bass, no fluff. rappity-rap pack — prod. TheBeatMob",
     palette: ["#241408", "#ffb36b", "#ffe8cf"],
     synthSeed: 404,
+    img: "brick-talk.png"
   },
   {
     id: "cold-front",
@@ -119,6 +125,7 @@ export const BEATS: Beat[] = [
       "big screen trap. strings sweep in, 808s roll under. intro-music energy — prod. TheBeatMob",
     palette: ["#0a1424", "#7fb2ff", "#d6e6ff"],
     synthSeed: 505,
+    img: "cold-front.png"
   },
   {
     id: "trap-phone",
@@ -138,6 +145,7 @@ export const BEATS: Beat[] = [
       "menacing piano loop over hard knocking drums. one you can chase the whole city to — prod. TheBeatMob",
     palette: ["#14141c", "#ff9f9f", "#ffe0e0"],
     synthSeed: 606,
+    img: "trap-phone.png"
   },
 ];
 

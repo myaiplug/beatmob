@@ -134,15 +134,6 @@ export default function App() {
     rollLucky();
   };
 
-  const quickAdd = (beat: Beat) => {
-    if (entries.some((e) => e.beat.id === beat.id)) {
-      setPhoneOpen(true);
-      return;
-    }
-    addBeat(beat);
-    rollLucky();
-  };
-
   // ── lucky roll (1 in 8, once per visit) ──
   const rollLucky = () => {
     if (luckyRef.current) return;
@@ -198,7 +189,6 @@ export default function App() {
         currentId={playing ? current?.id ?? null : null}
         onPreview={playBeat}
         onOpenScale={(b) => setScaleBeat(b)}
-        onAdd={quickAdd}
         freeIds={freeIds}
       />
 
