@@ -15,21 +15,22 @@ const SRC: Record<PackKind, string> = {
 
 export function PackArt({ beat, kind }: { beat: Beat; kind: PackKind }) {
   const rng = mulberry32ish(beat.synthSeed);
-  const rot = (rng() - 0.5) * 6;
-  const scale = 1.04 + rng() * 0.1;
-  const posX = 40 + rng() * 20;
-  const posY = 40 + rng() * 20;
+  const rot = (rng() - 0.5) * 5;
+  const scale = 1.1 + rng() * 0.14;
+  const posX = 38 + rng() * 24;
+  const posY = 38 + rng() * 24;
   return (
-    <div className="art-photo" aria-label={`${kind === "sack" ? "Bag of product" : "Pressed brick, " + kind}`} role="img">
-      <img
-        src={SRC[kind]}
-        alt=""
-        draggable={false}
-        style={{
-          transform: `rotate(${rot}deg) scale(${scale})`,
-          objectPosition: `${posX}% ${posY}%`,
-        }}
-      />
-    </div>
+    <div
+      className="art-photo"
+      role="img"
+      aria-label={kind === "sack" ? "Bag of product" : `Pressed brick, ${kind}`}
+      style={{
+        backgroundImage: `url(${SRC[kind]})`,
+        backgroundPosition: `${posX}% ${posY}%`,
+        // single combined "transform" — this engine doesn't compose the
+        // separate translate/rotate/scale CSS properties reliably.
+        transform: `rotate(${rot}deg) scale(${scale})`,
+      }}
+    />
   );
 }

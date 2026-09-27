@@ -231,13 +231,12 @@ input { font: inherit; }
 
 .pack-cover { position: relative; overflow: hidden; background: #05060a; }
 .pack-cover svg { width: 100%; height: 100%; display: block; }
-.art-photo { position: absolute; inset: 0; overflow: hidden; }
-.art-photo img {
-  position: absolute; top: 50%; left: 50%; width: 132%; height: 132%; max-width: none;
-  transform-origin: center; object-fit: cover; filter: brightness(0.94) contrast(1.05) saturate(1.03);
-  translate: -50% -50%;
+.art-photo {
+  position: absolute; inset: 0; background-size: cover; background-repeat: no-repeat;
+  filter: brightness(0.94) contrast(1.05) saturate(1.03);
+  transition: filter 0.4s, transform 0.4s;
 }
-.pack:hover .art-photo img { filter: brightness(1.02) contrast(1.08) saturate(1.08); }
+.pack:hover .art-photo { filter: brightness(1.04) contrast(1.1) saturate(1.1); }
 .pack-play {
   position: absolute; right: 0.7rem; bottom: 0.7rem; z-index: 3;
   width: 44px; height: 44px; border-radius: 50%;
