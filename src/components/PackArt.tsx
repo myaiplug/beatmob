@@ -5,10 +5,12 @@ import { mulberry32ish } from "../audio/rng";
 
 export type PackKind = "white" | "tan" | "sack";
 
+// import.meta.env.BASE_URL respects the GitHub Pages "/beatmob/" subpath —
+// a hardcoded absolute path would 404 there.
 const SRC: Record<PackKind, string> = {
-  white: "/product/brick-white.png",
-  tan: "/product/brick-tan.png",
-  sack: "/product/dub-sack.png",
+  white: `${import.meta.env.BASE_URL}product/brick-white.png`,
+  tan: `${import.meta.env.BASE_URL}product/brick-tan.png`,
+  sack: `${import.meta.env.BASE_URL}product/dub-sack.png`,
 };
 
 export function PackArt({ beat, kind }: { beat: Beat; kind: PackKind }) {
