@@ -68,7 +68,7 @@ export function Hero() {
           The Beatmob<br />Store
         </h1>
         <p className="hero-sub rise" style={{ animationDelay: "0.3s" }}>
-          Fresh product, weighed on request. Drag a pack to the scale, bag it, and the phone handles the rest.
+          Fresh product, weighed on request. Hit weigh it, bag it, and the phone handles the rest.
         </p>
         <p className="hero-fine rise" style={{ animationDelay: "0.45s" }}>
           All product is musical. 100% beat. No actual product, just heat.

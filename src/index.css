@@ -229,8 +229,15 @@ input { font: inherit; }
 }
 .pack.baggie .pack-cover { flex: 1; min-height: 210px; margin: 40px 14px 4px; border-radius: 4px; }
 
-.pack-cover { position: relative; overflow: hidden; }
+.pack-cover { position: relative; overflow: hidden; background: #05060a; }
 .pack-cover svg { width: 100%; height: 100%; display: block; }
+.art-photo { position: absolute; inset: 0; overflow: hidden; }
+.art-photo img {
+  position: absolute; top: 50%; left: 50%; width: 132%; height: 132%; max-width: none;
+  transform-origin: center; object-fit: cover; filter: brightness(0.94) contrast(1.05) saturate(1.03);
+  translate: -50% -50%;
+}
+.pack:hover .art-photo img { filter: brightness(1.02) contrast(1.08) saturate(1.08); }
 .pack-play {
   position: absolute; right: 0.7rem; bottom: 0.7rem; z-index: 3;
   width: 44px; height: 44px; border-radius: 50%;
@@ -319,8 +326,11 @@ input { font: inherit; }
 
 /* ── the digital scale (hardware) ── */
 .scale {
-  position: fixed; top: 50%; right: 1.4rem; z-index: 900;
-  transform: translate(140%, -50%);
+  /* docks in the UPPER right quadrant — the phone owns the lower half, so the
+     two panels can never land on top of each other, on any viewport. */
+  position: fixed; top: 5vh; right: 1.4rem; z-index: 900;
+  max-height: 44vh; overflow-y: auto;
+  transform: translateX(140%);
   transition: transform 0.55s var(--ease-out);
   width: min(350px, calc(100vw - 2.8rem));
   padding: 14px 14px 16px;
@@ -329,7 +339,7 @@ input { font: inherit; }
   border: 1px solid #4a5057;
   box-shadow: 0 50px 100px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0,0,0,0.55);
 }
-.scale.on { transform: translate(0, -50%); }
+.scale.on { transform: translateX(0); }
 .scale-head { display: flex; justify-content: space-between; align-items: center; padding: 0 0.2rem 0.6rem; }
 .scale-brand { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.24em; color: #9aa4ae; text-transform: uppercase; }
 .scale-brand b { color: #e8eef4; }
@@ -389,8 +399,11 @@ input { font: inherit; }
 
 /* ── the trap phone (device) ── */
 .phone {
-  position: fixed; top: 50%; right: 1.4rem; z-index: 950;
-  transform: translate(150%, -50%);
+  /* docks in the LOWER right quadrant — mirror of the scale's upper dock, so
+     opening both at once stacks them instead of overlapping. */
+  position: fixed; bottom: 5vh; right: 1.4rem; z-index: 950;
+  max-height: 46vh; display: flex; flex-direction: column;
+  transform: translateX(150%);
   transition: transform 0.55s var(--ease-out);
   width: min(330px, calc(100vw - 2.4rem));
   border-radius: 38px 38px 44px 44px; padding: 16px 14px 18px;
@@ -398,7 +411,7 @@ input { font: inherit; }
   border: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 60px 120px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -2px 0 rgba(0,0,0,0.6);
 }
-.phone.on { transform: translate(0, -50%); }
+.phone.on { transform: translateX(0); }
 .phone::before { /* earpiece speaker */
   content: ""; position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
   width: 58px; height: 7px; border-radius: 5px;
@@ -416,6 +429,7 @@ input { font: inherit; }
   background: #050607; border: 2px solid #020304;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 60px rgba(0,0,0,0.55) inset;
   position: relative;
+  display: flex; flex-direction: column; min-height: 0; flex: 1;
 }
 .phone-screen::after { /* screen glass glare */
   content: ""; position: absolute; inset: 0; z-index: 6; pointer-events: none;
@@ -538,6 +552,31 @@ body.frost #frostOverlay { opacity: 1; }
 
 /* footer */
 footer.site { border-top: 1px solid var(--border); padding: 2.4rem 1.4rem; text-align: center; color: var(--faint); font-size: 0.75rem; line-height: 1.8; }
+
+/* mobile: scale drops from the TOP, phone rises from the BOTTOM — kept on
+   opposite edges so they can never land on each other on a small screen. */
+@media (max-width: 720px) {
+  .scale {
+    top: 0; bottom: auto; right: 0; left: 0; width: auto;
+    max-height: 62dvh;
+    border-radius: 0 0 22px 22px;
+    transform: translateY(-115%);
+  }
+  .scale.on { transform: translateY(0); }
+
+  .phone {
+    top: auto; bottom: 0; right: 0; left: 0; width: auto;
+    max-height: 72dvh;
+    border-radius: 26px 26px 0 0;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+    transform: translateY(115%);
+  }
+  .phone.on { transform: translateY(0); }
+  .phone::after { display: none; }
+
+  .dock { bottom: auto; top: 0.9rem; right: 0.9rem; }
+  .phone-fab { bottom: 1.1rem; right: 1rem; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
